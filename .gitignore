@@ -1,0 +1,5 @@
+__pycache__/
+SQLITE_old
+data.db
+*.pyc
+
