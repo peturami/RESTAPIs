@@ -16,14 +16,6 @@ app.secret_key = 'jose' #key for encryption
 api = Api(app)
 
 
-# decorater that is executed first
-# nahrazuje puvodni create scripty
-# vytvoři db a všechny tabulky - musi byt importovany zde jinak je neuvidi
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
-
 jwt = JWT(app, authenticate, identity)
 # JWT creates new endpoint /auth , then we send it username + pass and JWT sends it to authenticate function - if thats ok auth endpoint returns JWT token
 
