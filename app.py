@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -10,7 +12,9 @@ from resources.item import Item, ItemList
 from resources.store import Store, StoreList
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+# heroku vytvoří proměnnou DATABASE_URL, takže si stačí načíst hodnotu v proměnné, druhý parametr to vezme pokud neexistuje var DATABASE_URL (např.při spuštění na locale)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # turns off Flask sqlalchemy changes tracker
 app.secret_key = 'jose' #key for encryption
 api = Api(app)
